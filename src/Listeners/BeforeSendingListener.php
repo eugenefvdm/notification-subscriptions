@@ -30,6 +30,7 @@ class BeforeSendingListener
                     repeatFrequency: $baseNotificationClass::getRepeatFrequency(),
                     repeatInterval: $baseNotificationClass::getRepeatInterval(),
                     maxRepeats: $baseNotificationClass::getMaxRepeats(),
+                    initialDelay: $baseNotificationClass::getInitialDelay(),
                 );
 
                 // Now that we have a template, let's subscribe the user to the notification
@@ -50,7 +51,7 @@ class BeforeSendingListener
             }
 
             // If there is an initial delay and it's in the future, do not send the notification
-            if ($notification->getInitialDelay() && $notification->getInitialDelay()->isFuture()) {
+            if ($template->initial_delay && now()->lt($template->initial_delay)) {
                 return false;
             }
         }

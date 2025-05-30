@@ -60,8 +60,8 @@ class DailyReminder extends BaseNotification
     use Queueable;
 
     public static ?string $repeatFrequency = 'daily'; // daily, weekly, monthly, yearly
-    public static ?int $maxRepeats = 3;
     public static ?int $repeatInterval = 4;
+    public static ?int $maxRepeats = 3;
 ```
 
 ## Delayed Sending
@@ -82,7 +82,7 @@ class DailyReminder extends BaseNotification
      */
     public function __construct()
     {        
-        self::$initialDelay = Carbon::now()->addDays(3);
+        self::$initialDelay = Carbon::now()->addWeek();
     }
 ```
 
