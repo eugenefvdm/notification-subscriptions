@@ -22,10 +22,10 @@ class NotificationSubscriptionsServiceProvider extends ServiceProvider
 
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
-        $this->loadViewsFrom(__DIR__.'/../resources/views/components', 'notification-subscriptions');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'notification-subscriptions');
 
         $this->publishes([
-            __DIR__.'/../resources/views/components' => resource_path('views/components/vendor/notification-subscriptions'),
+            __DIR__.'/../resources/views' => resource_path('views/vendor/notification-subscriptions'),
         ], 'notification-subscriptions-views');
 
         Event::listen(

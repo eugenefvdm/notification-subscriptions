@@ -1,8 +1,10 @@
 # Notification Subscriptions
 
-Notification Subscriptions is a Laravel package used to keep track of repeat emails, delayed emails, and unsubscribing of email notifications.
+Notification Subscriptions is a Laravel package that may be used to keep track of repeat emails, delayed emails, and unsubscribing of email notifications.
 
 The package makes use of Laravel's built-in event listeners `NotificationSending` and `NotificationSent` to automatic subscribe and to determine if and when a message should be sent.
+
+A simple categorization variable allows you to easily group notifications.
 
 ## Installation
 
@@ -17,7 +19,15 @@ php artisan vendor:publish --tag="notification-subscriptions-migrations"
 php artisan migrate
 ```
 
-Add the `HasNotificationSubscriptions` trait to your User model:
+If you want to customize the unsubscribe links, publish the view component:
+
+```bash
+php artisan vendor:publish --tag="notification-subscriptions-views"
+```
+
+## Setup
+
+Add the `HasNotificationSubscriptions` trait to your `User` model:
 
 ```php
 use Eugenefvdm\NotificationSubscriptions\Traits\HasNotificationSubscriptions;
@@ -32,7 +42,7 @@ class User extends Authenticatable
 
 ## Usage
 
-Generate notifications as usual using `php artisan`:
+Generate notifications as per usual using `php artisan`:
 
 ```bash
 php artisan make:notification DailyReminder --markdown=reminders.daily
@@ -110,8 +120,30 @@ public function toMail(object $notifiable): MailMessage
 Then add this to your blade:
 
 ```php
-<x-unsubscribe :url="route('notifications.unsubscribe', ['uuid' => $subscription->uuid])" />
+<x-notification-subscriptions::unsubscribe :subscription="$subscription" />
 ```
+
+## Categorization
+
+All new messages without an explicit category assignment will be assigned to the `default` category in the database.
+
+To specify a custom category, use `$category`:
+
+```php
+use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
+
+class DailyReminder extends BaseNotification
+{
+    use Queueable;
+
+    public static ?string $category = 'reminders';
+```
+
+## Model Specific Subscriptions
+
+Notifications are typically tied to a user, but at times you want to tie a notification to both a user and another model. For example, you might have a products table, and you want a user to be subscribed to a price notification on this products table. In this case you can subscribe the user like so:
+
+
 
 ## Examples
 

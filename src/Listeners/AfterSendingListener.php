@@ -23,18 +23,19 @@ class AfterSendingListener
         $notification = $event->notification;
 
         if ($notification instanceof BaseNotification) {
-            $subscription = $event->notifiable
+            $query = $event->notifiable
                 ->notificationSubscriptions()
-                ->where('notification_template_id', $notification::getTemplate()->id)
-                ->first();
-            
-            $subscription->incrementCount();
+                ->where('notification_template_id', $notification::getTemplate()->id);
 
-            // Set the next scheduled date based on the template's repeat frequency
-            // if ($subscription->template->isRepeatable()) {
-            //     $subscription->scheduled_at = now()->addMonth(); // For monthly frequency
-            //     $subscription->save();
-            // }
+            // If this notification is for a specific model, include it in the query
+            if (property_exists($notification, 'customModel') && $notification->customModel) {
+                $query->where('notifiable_type', get_class($notification->customModel))
+                    ->where('notifiable_id', $notification->customModel->id);
+            }
+
+            $subscription = $query->first();
+            
+            $subscription->incrementCount();            
         }
     }
 }

@@ -27,6 +27,7 @@ class BeforeSendingListener
             if (!$template) {
                 $template = $baseNotificationClass::getOrCreateTemplate(
                     name: class_basename($baseNotificationClass),
+                    category: $baseNotificationClass::getCategory(),
                     repeatFrequency: $baseNotificationClass::getRepeatFrequency(),
                     repeatInterval: $baseNotificationClass::getRepeatInterval(),
                     maxRepeats: $baseNotificationClass::getMaxRepeats(),
@@ -38,7 +39,16 @@ class BeforeSendingListener
             }
 
             // Get the subscription for this notification
-            $subscription = $event->notifiable->notificationSubscriptions()->where('notification_template_id', $template->id)->first();
+            $query = $event->notifiable->notificationSubscriptions()
+                ->where('notification_template_id', $template->id);
+
+            // If this notification is for a specific model, include it in the query
+            if (property_exists($notification, 'customModel') && $notification->customModel) {
+                $query->where('notifiable_type', get_class($notification->customModel))
+                    ->where('notifiable_id', $notification->customModel->id);
+            }
+
+            $subscription = $query->first();
 
             // If the subscription has reached the max count, prevent the notification from being sent
             if ($subscription->isMaxCountReached()) {

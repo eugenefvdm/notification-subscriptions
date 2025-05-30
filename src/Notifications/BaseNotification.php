@@ -15,12 +15,14 @@ abstract class BaseNotification extends Notification implements ShouldQueue
     use Queueable;
 
     protected ?NotificationSubscription $subscription = null;    
+    public ?object $customModel = null;
 
     // Default repeat variables, can be overridden by child classes
     protected static ?string $repeatFrequency = null;
     protected static ?int $repeatInterval = null;
     protected static ?int $maxRepeats = null;
     protected static ?Carbon $initialDelay = null;
+    protected static ?string $category = 'default';
     
     // Get the repeat frequency from the base class
     public static function getRepeatFrequency(): ?string
@@ -46,6 +48,12 @@ abstract class BaseNotification extends Notification implements ShouldQueue
         return static::$initialDelay ?? null;
     }
 
+    // Get the category from the base class
+    public static function getCategory(): string
+    {
+        return static::$category ?? 'default';
+    }
+
     /**
      * Get the notification subscription.
      */
@@ -59,10 +67,16 @@ abstract class BaseNotification extends Notification implements ShouldQueue
      */
     public function getSubscriptionFromNotifiable(object $notifiable): ?NotificationSubscription
     {
-        return NotificationSubscription::
-            where('user_id', $notifiable->id)
-            ->where('notification_template_id', self::getTemplate()->id)
-            ->first();
+        $query = NotificationSubscription::where('user_id', $notifiable->id)
+            ->where('notification_template_id', self::getTemplate()->id);
+
+        // If this notification is for a specific model, include it in the query
+        if (property_exists($this, 'model') && $this->model) {
+            $query->where('notifiable_type', get_class($this->model))
+                ->where('notifiable_id', $this->model->id);
+        }
+
+        return $query->first();
     }
 
     /**
