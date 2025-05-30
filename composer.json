@@ -1,0 +1,39 @@
+{
+    "name": "eugenefvdm/notification-subscriptions",
+    "description": "A Laravel package for managing email subscriptions, repeat emails, and delayed sending",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "EugeneFvdm\\NotificationSubscriptions\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "EugeneFvdm\\NotificationSubscriptions\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Eugene van der Merwe",
+            "email": "eugene@vander.host"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "laravel/framework": "^10.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.36",
+        "phpunit/phpunit": "^10.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "EugeneFvdm\\NotificationSubscriptions\\Providers\\NotificationSubscriptionsServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
