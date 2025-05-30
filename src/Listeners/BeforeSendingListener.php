@@ -44,6 +44,11 @@ class BeforeSendingListener
                 return false;
             }
 
+            // If there is a scheduled time and it's in the future, do not send the notification
+            if ($subscription->scheduled_at && $subscription->scheduled_at->isFuture()) {
+                return false;
+            }
+
             // If there is an initial delay and it's in the future, do not send the notification
             if ($notification->getInitialDelay() && $notification->getInitialDelay()->isFuture()) {
                 return false;

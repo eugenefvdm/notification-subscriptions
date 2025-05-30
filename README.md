@@ -1,6 +1,6 @@
 # Notification Subscriptions
 
-Notification Subscriptions is a package designed to keep track of repeat emails, delayed emails, and unsubscribing of emails.
+Notification Subscriptions is a Laravel package used to keep track of repeat emails, delayed emails, and unsubscribing of email notifications.
 
 The package makes use of Laravel's built-in event listeners `NotificationSending` and `NotificationSent` to automatic subscribe and to determine if and when a message should be sent.
 
@@ -38,10 +38,14 @@ Generate notifications as usual using `php artisan`:
 php artisan make:notification DailyReminder --markdown=reminders.daily
 ```
 
-Ensure the newly created notification extends the BaseNotification Class:
+Extend the newly created notification with the BaseNotification class:
 
 ```php
+use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
+
 class DailyReminder extends BaseNotification
+{
+    use Queueable;
 ```
 
 ## Repeat Settings
@@ -49,9 +53,15 @@ class DailyReminder extends BaseNotification
 In your notification class, add any or all of the following variables to do repeated notifications:
 
 ```php
-public static ?string $repeatFrequency = 'daily';
-public static ?int $repeatInterval = 4;
-public static ?int $maxRepeats = 3;
+use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
+
+class DailyReminder extends BaseNotification
+{
+    use Queueable;
+
+    public static ?string $repeatFrequency = 'daily'; // daily, weekly, monthly, yearly
+    public static ?int $maxRepeats = 3;
+    public static ?int $repeatInterval = 4;
 ```
 
 ## Delayed Sending
@@ -59,16 +69,21 @@ public static ?int $maxRepeats = 3;
 To wait a certain amount of time before sending a notification, set `initialDelay` in your constructor:
 
 ```php
-public static ?Carbon $initialDelay = null;
+use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
 
-/**
- * Create a new notification instance.
- */
-public function __construct()
+class DailyReminder extends BaseNotification
 {
-    //
-    self::$initialDelay = Carbon::now()->addDays(3);
-}
+    use Queueable;
+
+    public static ?Carbon $initialDelay = null;
+
+    /**
+     * Create a new notification instance.
+     */
+    public function __construct()
+    {        
+        self::$initialDelay = Carbon::now()->addDays(3);
+    }
 ```
 
 ## Unsubscribe

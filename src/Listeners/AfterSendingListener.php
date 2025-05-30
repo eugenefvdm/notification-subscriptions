@@ -19,9 +19,7 @@ class AfterSendingListener
      * Handle the event.
      */
     public function handle(NotificationSent $event): void
-    {
-        ray("AfterSendingListener");
-        
+    {           
         $notification = $event->notification;
 
         if ($notification instanceof BaseNotification) {
@@ -33,10 +31,10 @@ class AfterSendingListener
             $subscription->incrementCount();
 
             // Set the next scheduled date based on the template's repeat frequency
-            if ($subscription->template->isRepeatable()) {
-                $subscription->scheduled_at = now()->addMonth(); // For monthly frequency
-                $subscription->save();
-            }
+            // if ($subscription->template->isRepeatable()) {
+            //     $subscription->scheduled_at = now()->addMonth(); // For monthly frequency
+            //     $subscription->save();
+            // }
         }
     }
 }
