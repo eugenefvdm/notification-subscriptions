@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Listeners;
+namespace Eugenefvdm\NotificationSubscriptions\Listeners;
 
-use App\Notifications\BaseNotification;
-use App\Models\NotificationTemplate;
+use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
+use Eugenefvdm\NotificationSubscriptions\Models\NotificationTemplate;
 use Illuminate\Notifications\Events\NotificationSending;
 
 class BeforeSendingListener

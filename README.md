@@ -10,18 +10,38 @@ The package makes use of Laravel's built-in event listeners `NotificationSending
 composer require eugenefvdm/notification-subscriptions
 ```
 
+After installing the package, publish and run the migrations:
+
+```bash
+php artisan vendor:publish --tag="notification-subscriptions-migrations"
+php artisan migrate
+```
+
+Add the `HasNotificationSubscriptions` trait to your User model:
+
+```php
+use Eugenefvdm\NotificationSubscriptions\Traits\HasNotificationSubscriptions;
+
+class User extends Authenticatable
+{
+    /** @use HasFactory<\Database\Factories\UserFactory> */
+    use HasFactory, Notifiable;
+    use HasNotificationSubscriptions;
+```
+
+
 ## Usage
 
 Generate notifications as usual using `php artisan`:
 
 ```bash
-php artisan make:notification DailyReminders --markdown=reminders.daily
+php artisan make:notification DailyReminder --markdown=reminders.daily
 ```
 
 Ensure the newly created notification extends the BaseNotification Class:
 
 ```php
-class DailyReminders extends BaseNotification
+class DailyReminder extends BaseNotification
 ```
 
 ## Repeat Settings

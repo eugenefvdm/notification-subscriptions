@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Notifications;
+namespace Eugenefvdm\NotificationSubscriptions\Notifications;
 
-use App\Models\NotificationSubscription;
-use App\Models\NotificationTemplate;
+use Eugenefvdm\NotificationSubscriptions\Models\NotificationSubscription;
+use Eugenefvdm\NotificationSubscriptions\Models\NotificationTemplate;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

@@ -1,10 +1,10 @@
 <?php
 
-namespace EugeneFvdm\NotificationSubscriptions\Http\Controllers;
+namespace Eugenefvdm\NotificationSubscriptions\Http\Controllers;
 
-use App\Models\NotificationSubscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Eugenefvdm\NotificationSubscriptions\Models\NotificationSubscription;
 
 class NotificationController extends Controller
 {

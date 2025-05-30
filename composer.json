@@ -5,12 +5,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "EugeneFvdm\\NotificationSubscriptions\\": "src/"
+            "Eugenefvdm\\NotificationSubscriptions\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "EugeneFvdm\\NotificationSubscriptions\\Tests\\": "tests/"
+            "Eugenefvdm\\NotificationSubscriptions\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -20,17 +20,15 @@
         }
     ],
     "require": {
-        "php": "^8.1",
-        "laravel/framework": "^10.0"
+        "laravel/framework": "^12.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^8.36",
-        "phpunit/phpunit": "^10.0"
+        "orchestra/testbench": "^10.3"
     },
     "extra": {
         "laravel": {
             "providers": [
-                "EugeneFvdm\\NotificationSubscriptions\\Providers\\NotificationSubscriptionsServiceProvider"
+                "Eugenefvdm\\NotificationSubscriptions\\Providers\\NotificationSubscriptionsServiceProvider"
             ]
         }
     },

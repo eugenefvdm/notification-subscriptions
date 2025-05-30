@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Listeners;
+namespace Eugenefvdm\NotificationSubscriptions\Listeners;
 
-use App\Notifications\BaseNotification;
+use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
 use Illuminate\Notifications\Events\NotificationSent;
 
 class AfterSendingListener
