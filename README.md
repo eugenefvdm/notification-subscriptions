@@ -1,5 +1,7 @@
 # Notification Subscriptions
 
+[![Tests](https://github.com/eugenefvdm/notification-subscriptions/actions/workflows/run-tests.yml/badge.svg)](https://github.com/eugenefvdm/notification-subscriptions/actions/workflows/run-tests.yml)
+
 Notification Subscriptions is a Laravel package that may be used to keep track of repeat emails, delayed emails, and unsubscribing of email notifications.
 
 The package makes use of Laravel's built-in event listeners `NotificationSending` and `NotificationSent` to automatic subscribe and to determine if and when a message should be sent.
