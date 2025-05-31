@@ -2,6 +2,7 @@
 
 namespace Eugenefvdm\NotificationSubscriptions\Models;
 
+use Eugenefvdm\NotificationSubscriptions\Enums\RepeatFrequency;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -117,23 +118,14 @@ class NotificationSubscription extends Model
         if ($this->template->isRepeatable() && !$this->isMaxCountReached()) {
             $interval = $this->template->repeat_interval ?? 1;
             
-            switch (strtolower($this->template->repeat_frequency)) {
-                case 'daily':
-                    $this->scheduled_at = now()->addDays($interval);
-                    break;
-                case 'weekly':
-                    $this->scheduled_at = now()->addWeeks($interval);
-                    break;
-                case 'monthly':
-                    $this->scheduled_at = now()->addMonths($interval);
-                    break;
-                case 'yearly':
-                    $this->scheduled_at = now()->addYears($interval);
-                    break;
-                default:
-                    // If frequency is not recognized, don't schedule next notification
-                    $this->scheduled_at = null;
-            }            
+            $this->scheduled_at = match($this->template->repeat_frequency) {
+                RepeatFrequency::Hourly => now()->addHours($interval),
+                RepeatFrequency::Daily => now()->addDays($interval),
+                RepeatFrequency::Weekly => now()->addWeeks($interval),
+                RepeatFrequency::Monthly => now()->addMonths($interval),
+                RepeatFrequency::Yearly => now()->addYears($interval),
+                default => null,
+            };
         }
         
         $this->save();

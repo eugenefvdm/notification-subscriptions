@@ -67,15 +67,16 @@ class DailyReminder extends BaseNotification
 In your notification class, add any or all of the following variables to do repeated notifications:
 
 ```php
+use Eugenefvdm\NotificationSubscriptions\Notifications\RepeatFrequency;
 use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
+
 
 class DailyReminder extends BaseNotification
 {
     use Queueable;
 
-    // Can be daily, weekly, monthly or yearly
-    public static ?string $repeatFrequency = 'daily';
-    public static ?int $repeatInterval = 4;
+    public static ?string $repeatFrequency = RepeatFrequency::Daily;
+    public static ?int $repeatInterval = 4; // optional
     public static ?int $maxRepeats = 3; // optional defaults to 1
 ```
 
@@ -174,6 +175,12 @@ class ProductPriceNotification extends BaseNotification
             ]);
     }
 }
+```
+
+## Testing
+
+```bash
+composer test
 ```
 
 ## License

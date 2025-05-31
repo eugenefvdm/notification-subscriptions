@@ -2,6 +2,7 @@
 
 namespace Eugenefvdm\NotificationSubscriptions\Models;
 
+use Eugenefvdm\NotificationSubscriptions\Enums\RepeatFrequency;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,6 +20,10 @@ class NotificationTemplate extends Model
         'repeat_interval',
         'max_repeats',
         'initial_delay',
+    ];
+
+    protected $casts = [
+        'repeat_frequency' => RepeatFrequency::class,
     ];
 
     public function subscriptions(): HasMany

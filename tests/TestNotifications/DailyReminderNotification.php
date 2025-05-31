@@ -2,6 +2,7 @@
 
 namespace Eugenefvdm\NotificationSubscriptions\Tests\TestNotifications;
 
+use Eugenefvdm\NotificationSubscriptions\Enums\RepeatFrequency;
 use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,7 +12,7 @@ class DailyReminderNotification extends BaseNotification
 {
     use Queueable;
 
-    public static ?string $repeatFrequency = 'daily';
+    public static ?RepeatFrequency $repeatFrequency = RepeatFrequency::Daily;
     public static ?int $maxRepeats = 3;
 
     /**
