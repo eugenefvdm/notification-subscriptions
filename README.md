@@ -1,6 +1,6 @@
 # Notification Subscriptions
 
-[![Tests](https://github.com/eugenefvdm/notification-subscriptions/actions/workflows/run-tests.yml/badge.svg)](https://github.com/eugenefvdm/notification-subscriptions/actions/workflows/run-tests.yml)
+![Tests](https://github.com/eugenefvdm/notification-subscriptions/actions/workflows/run-tests.yml/badge.svg)
 
 Notification Subscriptions is a Laravel package that may be used to keep track of repeat emails, delayed emails, and unsubscribing of email notifications.
 
@@ -27,7 +27,7 @@ If you want to customize the unsubscribe links, publish the view component:
 php artisan vendor:publish --tag="notification-subscriptions-views"
 ```
 
-## Setup User Model
+### User Model Trait
 
 Add the `HasNotificationSubscriptions` trait to your `User` model:
 
