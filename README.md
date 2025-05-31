@@ -169,7 +169,7 @@ class ProductPriceNotification extends BaseNotification
             ->subject("Price Update for {$this->customModel->name}")
             ->markdown('notification.product-price-update', [
                 'product' => $this->customModel,
-                // Add the line below and the blade component for unsubscribe
+                // Add line below and blade component for unsubscribe
                 'subscription' => $this->getSubscriptionFromNotifiable($notifiable)
             ]);
     }
