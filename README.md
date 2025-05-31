@@ -6,7 +6,7 @@ Notification Subscriptions is a Laravel package that may be used to keep track o
 
 The package makes use of Laravel's built-in event listeners `NotificationSending` and `NotificationSent` to automatic subscribe and to determine if and when a message should be sent.
 
-A simple categorization variable allows you to easily group notifications.
+A categorization class variable allows ease grouping of notifications.
 
 ## Installation
 
@@ -20,6 +20,8 @@ After installing the package, publish and run the migrations:
 php artisan vendor:publish --tag="notification-subscriptions-migrations"
 php artisan migrate
 ```
+
+This will create the `notification_templates` and `notification_subscriptions` tables.
 
 If you want to customize the unsubscribe links, publish the view component:
 
@@ -173,30 +175,3 @@ class ProductPriceNotification extends BaseNotification
 }
 ```
 
-
-
-## Examples
-
-- Send a notification once
-- Send a notification on a fixed schedule, e.g. every four days
-- Send a notification a limited amount of times, e.g 3 times and then stop
-- Send a notification for a limited amount of times per period, e.g. every 2nd week but stop after the 2nd time
-- Delay a notification by X amount of time before sending it, where X could be `Carbon::now()->addDays(1)`
-- Send a notification to a user but also based on a different model ID, for example a notification specific to to product ID.
-- Example blade views that display all notifications with unsubscribe links per item
-- Performant: Uses Laravel's cache to store templates so 1000s of messages may be sent
-
-## Testing
-
-- We aim for 100% code coverage
-- Feature tests for each use case
-- Unsubscribe link test
-- Blade view test
-- Performance tests (tests the cache)
-
-## Questions
-
-- Should we unsubscribe automatically when the max count has been reached?
-
-Scenario: A user has been notified three times that their subscription is expiring. After the 3rd time, should be subscription be deleted or should the subscripton just be unsubscribed. If it's just unsusbscribed, what do we do about the counters, because surely they will have to be reset the next time a user's subscription expires?# notifications-subscriptions
-# notification-subscriptions
