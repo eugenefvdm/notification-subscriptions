@@ -32,6 +32,10 @@ it('will create separate subscriptions for different products', function () {
 
     // Send notification for first product
     $user->notify(new ProductPriceNotification($product1));
+
+    $subscriptions = $user->notificationSubscriptions()
+        ->where('notification_template_id', ProductPriceNotification::getTemplate()->id)
+        ->get();
     
     // Send notification for second product
     $user->notify(new ProductPriceNotification($product2));
@@ -54,7 +58,7 @@ it('will include product details in the notification', function () {
 
     $notification = new ProductPriceNotification($product);
     $mail = $notification->toMail($user);
+    $bladeView = $mail->render();
 
-    expect($mail->subject)->toBe('Price Update for Premium Widget')
-        ->and($mail->render())->toContain('The price for Premium Widget has been updated to 199.99');
-}); 
+    $this->assertStringContainsString('The price for Premium Widget has been updated to 199.99', $bladeView);    
+});

@@ -10,7 +10,8 @@ use Eugenefvdm\NotificationSubscriptions\Traits\HasNotificationSubscriptions;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use Notifiable, HasNotificationSubscriptions, HasFactory;
+    use Notifiable, HasFactory;
+    use HasNotificationSubscriptions;
 
     protected $fillable = [
         'name',

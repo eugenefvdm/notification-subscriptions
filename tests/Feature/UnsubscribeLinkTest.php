@@ -15,8 +15,8 @@ it('will show an unsubscribe link if the notification is not a system notificati
     // Build the unsubscribe url
     $unsubscribeUrl = url(route('notifications.unsubscribe', $subscription->uuid));
 
-    $result = $notification->toMail($user);
-    $bladeView = $result->render();
+    $mail = $notification->toMail($user);
+    $bladeView = $mail->render();
 
     // Check the unsubscribe link is present in the mail
     $this->assertStringContainsString($unsubscribeUrl, $bladeView);

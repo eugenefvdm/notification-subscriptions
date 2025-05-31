@@ -33,9 +33,13 @@ class BeforeSendingListener
                     maxRepeats: $baseNotificationClass::getMaxRepeats(),
                     initialDelay: $baseNotificationClass::getInitialDelay(),
                 );
+            }
 
-                // Now that we have a template, let's subscribe the user to the notification
-                $event->notifiable->subscribeToNotification($template, $event->notifiable);
+            // Always create/update subscription for this specific notification
+            if (property_exists($notification, 'customModel') && $notification->customModel) {
+                $event->notifiable->subscribeToNotification($template, $notification->customModel);
+            } else {
+                $event->notifiable->subscribeToNotification($template);
             }
 
             // Get the subscription for this notification
