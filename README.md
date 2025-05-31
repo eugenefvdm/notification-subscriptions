@@ -1,6 +1,7 @@
 # Notification Subscriptions
 
 ![Tests](https://github.com/eugenefvdm/notification-subscriptions/actions/workflows/run-tests.yml/badge.svg)
+ ![Downloads](https://img.shields.io/packagist/dt/fintechsystems/payfast-onsite-subscriptions.svg)(https://packagist.org/packages/fintechsystems/payfast-onsite-subscriptions)
 
 Notification Subscriptions is a Laravel package that may be used to keep track of repeat emails, delayed emails, and unsubscribing of email notifications.
 
