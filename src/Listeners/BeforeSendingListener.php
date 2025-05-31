@@ -36,7 +36,7 @@ class BeforeSendingListener
             }
 
             // Always create/update subscription for this specific notification
-            if (property_exists($notification, 'customModel') && $notification->customModel) {
+            if ($notification->customModel) {
                 $event->notifiable->subscribeToNotification($template, $notification->customModel);
             } else {
                 $event->notifiable->subscribeToNotification($template);
@@ -46,8 +46,8 @@ class BeforeSendingListener
             $query = $event->notifiable->notificationSubscriptions()
                 ->where('notification_template_id', $template->id);
 
-            // If this notification is for a specific model, include it in the query
-            if (property_exists($notification, 'customModel') && $notification->customModel) {
+            // If this notification is using a custom model, include it in the query
+            if ($notification->customModel) {
                 $query->where('notifiable_type', get_class($notification->customModel))
                     ->where('notifiable_id', $notification->customModel->id);
             }

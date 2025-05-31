@@ -19,8 +19,8 @@ class AfterSendingListener
                 ->notificationSubscriptions()
                 ->where('notification_template_id', $notification::getTemplate()->id);
 
-            // If this notification is for a specific model, include it in the query
-            if (property_exists($notification, 'customModel') && $notification->customModel) {
+            // If this notification is using a custom model, include it in the query
+            if ($notification->customModel) {
                 $query->where('notifiable_type', get_class($notification->customModel))
                     ->where('notifiable_id', $notification->customModel->id);
             }
