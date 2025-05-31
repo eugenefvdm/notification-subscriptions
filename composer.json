@@ -26,7 +26,8 @@
     "autoload-dev": {
         "psr-4": {
             "Eugenefvdm\\NotificationSubscriptions\\Tests\\": "tests/",
-            "Database\\Factories\\": "tests/Database/Factories/"
+            "Database\\Factories\\": "tests/Database/Factories/",
+            "Eugenefvdm\\NotificationSubscriptions\\Notifications\\": "tests/Feature/"
         }
     },
     "extra": {

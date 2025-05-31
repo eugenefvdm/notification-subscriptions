@@ -24,6 +24,12 @@ class TestCase extends Orchestra
         Factory::guessFactoryNamesUsing(function (string $modelName) {
             return 'Database\\Factories\\' . class_basename($modelName) . 'Factory';
         });
+
+        // Configure view paths
+        $app['config']->set('view.paths', [
+            __DIR__ . '/../resources/views',
+            __DIR__ . '/resources/views',
+        ]);
     }
 
     protected function setUp(): void
@@ -32,5 +38,12 @@ class TestCase extends Orchestra
         
         // Run migrations
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+    }
+
+    protected function getPackageProviders($app)
+    {
+        return [
+            \Eugenefvdm\NotificationSubscriptions\NotificationSubscriptionsServiceProvider::class,
+        ];
     }
 } 

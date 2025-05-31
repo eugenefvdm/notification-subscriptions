@@ -2,9 +2,9 @@
 
 namespace Eugenefvdm\NotificationSubscriptions\Tests\Feature;
 
-use Eugenefvdm\NotificationSubscriptions\Tests\Models\User;
-use Eugenefvdm\NotificationSubscriptions\Tests\Feature\DefaultCategoryNotification;
-use Eugenefvdm\NotificationSubscriptions\Tests\Feature\CustomCategoryNotification;
+use Eugenefvdm\NotificationSubscriptions\Tests\TestModels\User;
+use Eugenefvdm\NotificationSubscriptions\Tests\TestNotifications\CustomCategoryNotification;
+use Eugenefvdm\NotificationSubscriptions\Tests\TestNotifications\DefaultCategoryNotification;
 
 it('will assign correct categories to notifications', function () {
     $user = User::factory()->create();

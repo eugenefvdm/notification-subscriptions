@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Eugenefvdm\NotificationSubscriptions\Tests\Models\User;
+use Eugenefvdm\NotificationSubscriptions\Tests\TestModels\User;
 
 class UserFactory extends Factory
 {
