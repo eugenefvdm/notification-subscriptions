@@ -8,7 +8,7 @@
 ### Fixed
 - Removed redundant `subscribed` database field
 - Repeat frequency is now an enum
-- Dropped `strtolower` in Ffrequency checking and migrated from `switch` to `match`
+- Dropped `strtolower` in frequency checking and migrated from `switch` to `match`
 
 ### Added
 - Changelog
