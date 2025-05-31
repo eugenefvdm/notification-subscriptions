@@ -6,8 +6,8 @@
 - Added `composer test`
  
 ### Fixed
-- Removed redundant 'subscribed' database field
-- Repeat frequency is now a backed enum
+- Removed redundant `subscribed` database field
+- Repeat frequency is now an enum
 - Dropped `strtolower` in Ffrequency checking and migrated from `switch` to `match`
 
 ### Added
