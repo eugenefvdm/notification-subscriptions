@@ -187,7 +187,7 @@ composer test
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-## Similar Packages
+## Alternatives
 
 - [mail-tracker](https://github.com/jdavidbakr/mail-tracker) - A Laravel package that injects tracking code into outgoing emails and provides an interface to view sent emails, track opens, and monitor link clicks.
 
