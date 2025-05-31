@@ -47,7 +47,6 @@ trait HasNotificationSubscriptions
         $data = [
             'notification_template_id' => $template->id,
             'user_id' => $this->id,
-            'subscribed' => true,
             'notification_class' => $notificationClass ?? $template->notification_class,
         ];
 

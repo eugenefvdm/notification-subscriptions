@@ -17,7 +17,6 @@ return new class extends Migration
             // Polymorphic relationship for model-specific notifications
             $table->nullableMorphs('notifiable');
             
-            $table->boolean('subscribed')->default(true);
             $table->uuid('uuid');
             $table->timestamp('unsubscribed_at')->nullable();
             $table->timestamp('sent_at')->nullable();
