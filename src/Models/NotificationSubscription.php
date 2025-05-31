@@ -63,7 +63,7 @@ class NotificationSubscription extends Model
     // Check if this subscription is active
     public function isActive(): bool
     {
-        return $this->subscribed && !$this->isMaxCountReached() && !$this->unsubscribed_at;
+        return !$this->isMaxCountReached() && !$this->unsubscribed_at;
     }
 
     // Check if the max count has been reached
@@ -93,8 +93,7 @@ class NotificationSubscription extends Model
     // Unsubscribe from this notification
     public function unsubscribe(): self
     {
-        if ($this->canBeUnsubscribed()) {
-            $this->subscribed = false;
+        if ($this->canBeUnsubscribed()) {            
             $this->unsubscribed_at = now();
             $this->save();
         }
