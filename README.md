@@ -23,7 +23,7 @@ php artisan migrate
 
 This will create the `notification_templates` and `notification_subscriptions` tables.
 
-If you want to customize the unsubscribe links, publish the view component:
+If you want to customize the unsubscribe link, publish the view component:
 
 ```bash
 php artisan vendor:publish --tag="notification-subscriptions-views"
@@ -35,8 +35,6 @@ Add the `HasNotificationSubscriptions` trait to your `User` model:
 
 ```php
 use Eugenefvdm\NotificationSubscriptions\Traits\HasNotificationSubscriptions;
-
-### Update User Model
 
 class User extends Authenticatable
 {
@@ -74,9 +72,10 @@ class DailyReminder extends BaseNotification
 {
     use Queueable;
 
-    public static ?string $repeatFrequency = 'daily'; // daily, weekly, monthly, yearly
+    // Can be daily, weekly, monthly or yearly
+    public static ?string $repeatFrequency = 'daily';
     public static ?int $repeatInterval = 4;
-    public static ?int $maxRepeats = 3;
+    public static ?int $maxRepeats = 3; // optional defaults to 1
 ```
 
 ## Delayed Sending
