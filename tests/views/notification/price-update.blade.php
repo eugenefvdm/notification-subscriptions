@@ -1,7 +1,7 @@
 <x-mail::message>
 # Introduction
 
-The body of your message.
+The price for {{$product->name}} has been updated to {{$product->price}}
 
 <x-mail::button :url="''">
 Button Text
@@ -11,4 +11,4 @@ Thanks,<br>
 {{ config('app.name') }}
 
 <x-notification-subscriptions::unsubscribe :subscription="$subscription" />
-</x-mail::message>
+</x-mail::message> 

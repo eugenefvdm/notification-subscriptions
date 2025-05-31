@@ -156,7 +156,7 @@ class ProductPriceNotification extends BaseNotification
 {
     use Queueable;
 
-    public Product $customModel; // Override $customModel with your own model
+    public Product $customModel; // Override $customModel
 
     public function __construct(Product $product)
     {
@@ -167,9 +167,10 @@ class ProductPriceNotification extends BaseNotification
     {
         return (new MailMessage)
             ->subject("Price Update for {$this->customModel->name}")
-            ->markdown('notification.product-price-changed', [
+            ->markdown('notification.product-price-update', [
                 'product' => $this->customModel,
-                'subscription' => $this->getSubscriptionFromNotifiable($notifiable) // Include this if you want a unsubscribe link. Remeber to include the blade component.
+                // Add the line below and the blade component for unsubscribe
+                'subscription' => $this->getSubscriptionFromNotifiable($notifiable)
             ]);
     }
 }

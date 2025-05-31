@@ -35,7 +35,7 @@ class UnsubscribeLinkNotification extends BaseNotification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-        ->markdown('notification.unsubscribe-link', [
+        ->markdown('test::notification.unsubscribe-link', [
             'subscription' => $this->getSubscriptionFromNotifiable($notifiable)
         ]);
     }

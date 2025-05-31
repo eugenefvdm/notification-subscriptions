@@ -30,6 +30,9 @@ class TestCase extends Orchestra
             __DIR__ . '/../resources/views',
             __DIR__ . '/resources/views',
         ]);
+
+        // Register test views namespace
+        $app['view']->addNamespace('test', __DIR__ . '/views');
     }
 
     protected function setUp(): void

@@ -49,16 +49,36 @@ it('will create separate subscriptions for different products', function () {
         ->and($subscriptions[1]->notifiable_id)->toBe($product2->id);
 });
 
-it('will include product details in the notification', function () {
+it('will include correct unsubscribe links in notifications', function () {
     $user = User::factory()->create();
-    $product = Product::factory()->create([
-        'name' => 'Premium Widget',
-        'price' => 199.99
+    $product1 = Product::factory()->create([
+        'name' => 'Product 1',
+        'price' => 99.99
+    ]);
+    $product2 = Product::factory()->create([
+        'name' => 'Product 2',
+        'price' => 149.99
     ]);
 
-    $notification = new ProductPriceNotification($product);
-    $mail = $notification->toMail($user);
-    $bladeView = $mail->render();
+    // Send notifications for both products
+    $user->notify(new ProductPriceNotification($product1));
+    $user->notify(new ProductPriceNotification($product2));
 
-    $this->assertStringContainsString('The price for Premium Widget has been updated to 199.99', $bladeView);    
+    // Get the subscriptions
+    $subscriptions = $user->notificationSubscriptions()
+        ->where('notification_template_id', ProductPriceNotification::getTemplate()->id)
+        ->get();
+
+    // Create notifications and render them
+    $notification1 = new ProductPriceNotification($product1);
+    $notification2 = new ProductPriceNotification($product2);
+    
+    $mail1 = $notification1->toMail($user);
+    $mail2 = $notification2->toMail($user);
+    
+    $bladeView1 = $mail1->render();
+    $bladeView2 = $mail2->render();
+
+    $this->assertStringContainsString($subscriptions[0]->uuid, $bladeView1);
+    $this->assertStringContainsString($subscriptions[1]->uuid, $bladeView2);
 });

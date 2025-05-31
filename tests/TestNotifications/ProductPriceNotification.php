@@ -29,21 +29,24 @@ class ProductPriceNotification extends BaseNotification
     {
         /** @var Product $product */
         $product = $this->customModel;
-        
+
         return (new MailMessage)
             ->subject("Price Update for {$product->name}")
-            ->line("The price for {$product->name} has been updated to {$product->price}");
+            ->markdown('test::notification.price-update', [
+                'product' => $product,
+                'subscription' => $this->getSubscriptionFromNotifiable($notifiable)
+            ]);
     }
-
+    
+    /**
+     * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
+     */
     public function toArray(object $notifiable): array
     {
-        /** @var Product $product */
-        $product = $this->customModel;
-        
         return [
-            'product_id' => $product->id,
-            'product_name' => $product->name,
-            'price' => $product->price,
+            //
         ];
     }
-} 
+}
