@@ -29,5 +29,5 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
-      - name: Run Pest tests
-        run: vendor/bin/pest --configuration=phpunit.xml 
+      - name: Execute tests
+        run: vendor/bin/pest
