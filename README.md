@@ -32,13 +32,14 @@ Add the `HasNotificationSubscriptions` trait to your `User` model:
 ```php
 use Eugenefvdm\NotificationSubscriptions\Traits\HasNotificationSubscriptions;
 
+### Update User Model
+
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
     use HasNotificationSubscriptions;
 ```
-
 
 ## Usage
 
@@ -141,7 +142,34 @@ class DailyReminder extends BaseNotification
 
 ## Model Specific Subscriptions
 
-Notifications are typically tied to a user, but at times you want to tie a notification to both a user and another model. For example, you might have a products table, and you want a user to be subscribed to a price notification on this products table. In this case you can subscribe the user like so:
+Notifications are typically tied to a user, but at times you want to tie a notification to both a user and another model. For example, you might have a products table, and you want a user to be subscribed to a price notification on this products table. Here's how:
+
+```php
+use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
+use App\Models\Product;
+
+class ProductPriceNotification extends BaseNotification
+{
+    use Queueable;
+
+    public Product $customModel;
+
+    public function __construct(Product $product)
+    {
+        $this->customModel = $product;
+    }
+
+    public function toMail(object $notifiable): MailMessage
+    {
+        return (new MailMessage)
+            ->subject("Price Update for {$this->customModel->name}")
+            ->markdown('notifications.product-price', [
+                'product' => $this->customModel,
+                'subscription' => $this->getSubscriptionFromNotifiable($notifiable)
+            ]);
+    }
+}
+```
 
 
 

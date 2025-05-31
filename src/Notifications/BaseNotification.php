@@ -7,6 +7,7 @@ use Eugenefvdm\NotificationSubscriptions\Models\NotificationTemplate;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
 
@@ -15,7 +16,7 @@ abstract class BaseNotification extends Notification implements ShouldQueue
     use Queueable;
 
     protected ?NotificationSubscription $subscription = null;    
-    public ?object $customModel = null;
+    public ?Model $customModel = null;
 
     // Default repeat variables, can be overridden by child classes
     protected static ?string $repeatFrequency = null;

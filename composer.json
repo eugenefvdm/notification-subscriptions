@@ -14,7 +14,9 @@
         "spatie/laravel-ray": "^1.40"        
     },
     "require-dev": {
-        "orchestra/testbench": "^10.3"
+        "orchestra/testbench": "^10.3",
+        "pestphp/pest": "^3.8",
+        "pestphp/pest-plugin-laravel": "^3.2"
     },
     "autoload": {
         "psr-4": {
@@ -23,7 +25,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Eugenefvdm\\NotificationSubscriptions\\Tests\\": "tests/"
+            "Eugenefvdm\\NotificationSubscriptions\\Tests\\": "tests/",
+            "Database\\Factories\\": "tests/Database/Factories/"
         }
     },
     "extra": {
@@ -34,5 +37,10 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
 }
