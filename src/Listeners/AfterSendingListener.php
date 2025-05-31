@@ -6,15 +6,7 @@ use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
 use Illuminate\Notifications\Events\NotificationSent;
 
 class AfterSendingListener
-{
-    /**
-     * Create the event listener.
-     */
-    public function __construct()
-    {
-        //
-    }
-
+{    
     /**
      * Handle the event.
      */
