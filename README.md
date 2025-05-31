@@ -4,9 +4,9 @@
 
 Notification Subscriptions is a Laravel package that may be used to keep track of repeat emails, delayed emails, and unsubscribing of email notifications.
 
-The package makes use of Laravel's built-in event listeners `NotificationSending` and `NotificationSent` to automatic subscribe and to determine if and when a message should be sent.
+The package makes use of Laravel's built-in event listeners `NotificationSending` and `NotificationSent` to automatically subscribe and to determine if and when a message should be sent.
 
-A categorization class variable allows ease grouping of notifications.
+Categorization of emails and model specific subscriptions are possible.
 
 ## Installation
 
@@ -146,7 +146,7 @@ class DailyReminder extends BaseNotification
 
 ## Model Specific Subscriptions
 
-Notifications are typically tied to a user, but at times you want to tie a notification to both a user and another model. For example, you might have a products table, and you want a user to be subscribed to a price notification on this products table. Here's how:
+Notifications are typically tied to a user, but at times one wants to bind a notification to both a user and another model. For example, you might have a `products` table, and you want a user to be subscribed to a price notification for the `Product` model. Here's how:
 
 ```php
 use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
@@ -156,7 +156,7 @@ class ProductPriceNotification extends BaseNotification
 {
     use Queueable;
 
-    public Product $customModel;
+    public Product $customModel; // Override $customModel with your own model
 
     public function __construct(Product $product)
     {
@@ -167,11 +167,15 @@ class ProductPriceNotification extends BaseNotification
     {
         return (new MailMessage)
             ->subject("Price Update for {$this->customModel->name}")
-            ->markdown('notifications.product-price', [
+            ->markdown('notification.product-price-changed', [
                 'product' => $this->customModel,
-                'subscription' => $this->getSubscriptionFromNotifiable($notifiable)
+                'subscription' => $this->getSubscriptionFromNotifiable($notifiable) // Include this if you want a unsubscribe link. Remeber to include the blade component.
             ]);
     }
 }
 ```
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
