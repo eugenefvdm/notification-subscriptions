@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.2 - 2025-05-31
+## v0.3 & v0.2 - 2025-05-31
 
 ### Changed
 - Added `composer test`
