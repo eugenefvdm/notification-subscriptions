@@ -30,7 +30,7 @@ If you want to customize the unsubscribe link, publish the view component:
 php artisan vendor:publish --tag="notification-subscriptions-views"
 ```
 
-### User Model Trait
+### User Model
 
 Add the `HasNotificationSubscriptions` trait to your `User` model:
 
