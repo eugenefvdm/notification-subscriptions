@@ -1,7 +1,5 @@
 <?php
 
-use App\Notifications\DailyReminder;
-use Carbon\Carbon;
 use Eugenefvdm\NotificationSubscriptions\Tests\TestModels\User;
 use Eugenefvdm\NotificationSubscriptions\Tests\TestNotifications\DailyReminderNotification;
 
@@ -20,7 +18,6 @@ it('will automatically subscribe a user to daily reminders', function () {
 
 it('will send daily reminders at the correct interval', function () {
     $user = User::factory()->create();
-    $now = Carbon::now();
 
     // Send first notification
     $user->notify(new DailyReminderNotification());

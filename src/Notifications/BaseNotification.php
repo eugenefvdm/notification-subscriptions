@@ -5,6 +5,7 @@ namespace Eugenefvdm\NotificationSubscriptions\Notifications;
 use Eugenefvdm\NotificationSubscriptions\Models\NotificationSubscription;
 use Eugenefvdm\NotificationSubscriptions\Models\NotificationTemplate;
 use App\Models\User;
+use Eugenefvdm\NotificationSubscriptions\Enums\RepeatFrequency;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
@@ -19,14 +20,14 @@ abstract class BaseNotification extends Notification implements ShouldQueue
     public ?Model $customModel = null;
 
     // Default repeat variables, can be overridden by child classes
-    protected static ?string $repeatFrequency = null;
+    protected static ?RepeatFrequency $repeatFrequency = null;
     protected static ?int $repeatInterval = null;
     protected static ?int $maxRepeats = null;
     protected static ?Carbon $initialDelay = null;
     protected static ?string $category = 'default';
     
     // Get the repeat frequency from the base class
-    public static function getRepeatFrequency(): ?string
+    public static function getRepeatFrequency(): ?RepeatFrequency
     {
         return static::$repeatFrequency ?? null;
     }
@@ -94,7 +95,7 @@ abstract class BaseNotification extends Notification implements ShouldQueue
     public static function getOrCreateTemplate(
         string $name,
         string $category = 'default',
-        ?string $repeatFrequency = null,
+        ?RepeatFrequency $repeatFrequency = null,
         ?int $repeatInterval = null,
         ?int $maxRepeats = null,
         ?Carbon $initialDelay = null

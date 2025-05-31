@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('category')->default('default');
             $table->string('notification_class')->unique();
-            $table->string('repeat_frequency')->nullable(); // E.g. daily, weekly, monthly, yearly
+            $table->string('repeat_frequency')->nullable(); // E.g. daily, weekly, etc. See Enum
             $table->integer('repeat_interval')->nullable(); // E.g. 1, 2, 3, etc.
             $table->integer('max_repeats')->nullable();
             $table->timestamp('initial_delay')->nullable(); // Carbon instance e.g. now()->addDays(4)
