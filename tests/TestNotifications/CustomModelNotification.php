@@ -2,6 +2,7 @@
 
 namespace Eugenefvdm\NotificationSubscriptions\Tests\TestNotifications;
 
+use Eugenefvdm\NotificationSubscriptions\Enums\RepeatFrequency;
 use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,7 +13,7 @@ class CustomModelNotification extends BaseNotification
 {
     use Queueable;
 
-    protected static ?string $repeatFrequency = 'weekly';
+    protected static ?RepeatFrequency $repeatFrequency = RepeatFrequency::Weekly;
 
     public ?Model $customModel;
 

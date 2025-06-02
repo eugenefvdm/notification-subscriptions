@@ -73,7 +73,7 @@ abstract class BaseNotification extends Notification implements ShouldQueue
             ->where('notification_template_id', self::getTemplate()->id);
 
         // If this notification is for a specific model, include it in the query
-        if (property_exists($this, 'customModel') && $this->customModel) {
+        if ($this->customModel) {
             $query->where('notifiable_type', get_class($this->customModel))
                 ->where('notifiable_id', $this->customModel->id);
         }
