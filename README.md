@@ -70,7 +70,6 @@ In your notification class, add any or all of the following variables to do repe
 use Eugenefvdm\NotificationSubscriptions\Enums\RepeatFrequency;
 use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
 
-
 class DailyReminder extends BaseNotification
 {
     use Queueable;
@@ -102,6 +101,57 @@ class DailyReminder extends BaseNotification
     }
 ```
 
+## Categorization
+
+All new messages without an explicit category assignment will be assigned to the `default` category in the database.
+
+To specify a custom category, use `$category`:
+
+```php
+use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
+
+class DailyReminder extends BaseNotification
+{
+    use Queueable;
+
+    public static ?string $category = 'reminders';
+```
+
+## Model Specific Subscriptions
+
+Notifications are typically tied to a user, but at times one wants to associate a notification to both a user and another model. For example, you might have a `products` table, and you want a user to be subscribed to a price notification for specific `Product` models. Here's how:
+
+```php
+use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Product;
+
+class ProductPriceNotification extends BaseNotification
+{
+    use Queueable;
+
+    public ?Model $customModel; // Override $customModel
+
+    public function __construct(Product $product) // Type-hint Product in constructor
+    {
+        $this->customModel = $product;
+    }
+
+    public function toMail(object $notifiable): MailMessage
+    {
+        /** @var Product $product */
+        $product = $this->customModel;
+
+        return (new MailMessage)
+            ->subject("Price Update for {$product->name}")
+            ->markdown('notification.product-price-update', [
+                'product' => $product,
+                'subscription' => $this->getSubscriptionFromNotifiable($notifiable)
+            ]);
+    }
+}
+```
+
 ## Unsubscribe
 
 Any new notification will be automatically subscribed when used the first time.
@@ -129,53 +179,7 @@ Then add this to your blade:
 <x-notification-subscriptions::unsubscribe :subscription="$subscription" />
 ```
 
-## Categorization
-
-All new messages without an explicit category assignment will be assigned to the `default` category in the database.
-
-To specify a custom category, use `$category`:
-
-```php
-use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
-
-class DailyReminder extends BaseNotification
-{
-    use Queueable;
-
-    public static ?string $category = 'reminders';
-```
-
-## Model Specific Subscriptions
-
-Notifications are typically tied to a user, but at times one wants to bind a notification to both a user and another model. For example, you might have a `products` table, and you want a user to be subscribed to a price notification for the `Product` model. Here's how:
-
-```php
-use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
-use App\Models\Product;
-
-class ProductPriceNotification extends BaseNotification
-{
-    use Queueable;
-
-    public Product $customModel; // Override $customModel
-
-    public function __construct(Product $product)
-    {
-        $this->customModel = $product;
-    }
-
-    public function toMail(object $notifiable): MailMessage
-    {
-        return (new MailMessage)
-            ->subject("Price Update for {$this->customModel->name}")
-            ->markdown('notification.product-price-update', [
-                'product' => $this->customModel,
-                // Add line below and blade component for unsubscribe
-                'subscription' => $this->getSubscriptionFromNotifiable($notifiable)
-            ]);
-    }
-}
-```
+The default controller action for unsubscribe is to redirect back with a session variable value of `error` or `status`.
 
 ## Testing
 

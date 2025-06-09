@@ -16,16 +16,57 @@ abstract class BaseNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected ?NotificationSubscription $subscription = null;    
+    /**
+     * customModel may be overridden by child classes and used for model specific notifications.
+     * 
+     * @var null|Model
+     */
     public ?Model $customModel = null;
 
-    // Default repeat variables, can be overridden by child classes
+    /**
+     * The subscription that this notification belongs to.
+     * 
+     * @var null|NotificationSubscription
+     */
+    protected ?NotificationSubscription $subscription = null;    
+
+    /**
+     * The frequency at which this notification will be repeated.
+     * 
+     * See Enum RepeatFrequency for possible values.
+     * 
+     * @var null|RepeatFrequency
+     */
     protected static ?RepeatFrequency $repeatFrequency = null;
+
+    /**
+     * The interval at which this notification will be repeated.
+     * 
+     * @var null|int
+     */
     protected static ?int $repeatInterval = null;
+
+    /**
+     * The maximum number of times this notification can be repeated.
+     * 
+     * @var null|int
+     */
     protected static ?int $maxRepeats = null;
+
+    /**
+     * The initial delay for this notification.
+     * 
+     * @var null|Carbon
+     */
     protected static ?Carbon $initialDelay = null;
+
+    /**
+     * The category that will be stored in the database.
+     * 
+     * @var string
+     */
     protected static ?string $category = 'default';
-    
+
     // Get the repeat frequency from the base class
     public static function getRepeatFrequency(): ?RepeatFrequency
     {

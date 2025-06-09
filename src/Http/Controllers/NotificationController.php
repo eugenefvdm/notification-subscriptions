@@ -5,6 +5,7 @@ namespace Eugenefvdm\NotificationSubscriptions\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Eugenefvdm\NotificationSubscriptions\Models\NotificationSubscription;
+use Illuminate\Routing\Controller;
 
 class NotificationController extends Controller
 {
@@ -16,20 +17,15 @@ class NotificationController extends Controller
         $subscription = NotificationSubscription::where('uuid', $uuid)->first();
 
         if (!$subscription) {
-            abort(404, 'Subscription not found');
+            return redirect()->back()->with('error', 'Subscription not found');
         }
 
-        // Check if this notification can be unsubscribed
         if (!$subscription->canBeUnsubscribed()) {
-            return redirect()->route('home')->with('error', 'This notification cannot be unsubscribed.');
+            return redirect()->back()->with('error', 'This notification cannot be unsubscribed');
         }
 
-        // Unsubscribe
         $subscription->unsubscribe();
 
-        Session::flash('success', 'You have been successfully unsubscribed from this notification.');
-
-        // Return to previous page or home
-        return redirect()->back()->fallback(route('home'));
+        return redirect()->back()->with('success', 'Successfully unsubscribed');
     }    
 } 
