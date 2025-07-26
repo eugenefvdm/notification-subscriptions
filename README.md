@@ -9,6 +9,10 @@ The package makes use of Laravel's built-in event listeners `NotificationSending
 
 Categorization of emails and model specific subscriptions are possible.
 
+## Requirements
+
+- Laravel 11 or 12
+
 ## Installation
 
 ```bash

@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.6 - 2025-07-26
+
+- Remove ray from composer.json
+- Added Laravel 11 compatibility and updated README
+
 ## v0.4 - 2025-06-09
 
 - Fixed `unsubscribe` controller logic by adding missing `Controller` import
