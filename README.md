@@ -11,7 +11,7 @@ Categorization of emails and model specific subscriptions are possible.
 
 ## Requirements
 
-- Laravel 10, 11 or 12
+- Laravel 11 or 12
 
 ## Installation
 
