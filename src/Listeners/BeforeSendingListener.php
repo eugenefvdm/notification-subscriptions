@@ -2,7 +2,7 @@
 
 namespace Eugenefvdm\NotificationSubscriptions\Listeners;
 
-use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
+use Eugenefvdm\NotificationSubscriptions\BaseNotification;
 use Eugenefvdm\NotificationSubscriptions\Models\NotificationTemplate;
 use Illuminate\Notifications\Events\NotificationSending;
 
@@ -53,6 +53,11 @@ class BeforeSendingListener
             }
 
             $subscription = $query->first();
+
+            // Check if the user has unsubscribed from this notification
+            if ($subscription->unsubscribed_at) {
+                return false;
+            }
 
             // If the subscription has reached the max count, prevent the notification from being sent
             if ($subscription->isMaxCountReached()) {

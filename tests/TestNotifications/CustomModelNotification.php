@@ -3,9 +3,8 @@
 namespace Eugenefvdm\NotificationSubscriptions\Tests\TestNotifications;
 
 use Eugenefvdm\NotificationSubscriptions\Enums\RepeatFrequency;
-use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
+use Eugenefvdm\NotificationSubscriptions\BaseNotification;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Messages\MailMessage;
 

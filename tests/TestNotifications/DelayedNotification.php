@@ -4,9 +4,8 @@ namespace Eugenefvdm\NotificationSubscriptions\Tests\TestNotifications;
 
 use Eugenefvdm\NotificationSubscriptions\Enums\RepeatFrequency;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
+use Eugenefvdm\NotificationSubscriptions\BaseNotification;
 use Illuminate\Support\Carbon;
 
 class DelayedNotification extends BaseNotification

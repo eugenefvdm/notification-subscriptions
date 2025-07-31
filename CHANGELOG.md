@@ -1,9 +1,21 @@
 # Changelog
 
+## v0.7 - 2025-07-31
+
+### Added
+
+- Added a conditional in the listener to do a check for the unsubscribed_at date
+- Update README.md file and removed section about publishing resources
+- Added information in the README.md file about the `unsubscribed` confirmation page
+- Changed `redirect()->back()->with('success||error', 'Message') to an actual unsubscribed page to provide visualisation after unsubscribing
+- Moved BaseNotification out of a "Notifications" directory further up to root to have a cleaner name space
+- Renamed NotificationController to UnsubscribeController and made it an invokable controller
+- Removed queueing on the abstract class BaseNotifications
+
 ## v0.6 - 2025-07-26
 
 - Remove ray from composer.json
-- Added Laravel 11 compatibility and updated README
+- Added Laravel 11 compatibility and updated `README.md` file
 
 ## v0.4 - 2025-06-09
 

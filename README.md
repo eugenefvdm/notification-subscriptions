@@ -19,16 +19,15 @@ Categorization of emails and model specific subscriptions are possible.
 composer require eugenefvdm/notification-subscriptions
 ```
 
-After installing the package, publish and run the migrations:
+After installing the package, run the migrations:
 
 ```bash
-php artisan vendor:publish --tag="notification-subscriptions-migrations"
 php artisan migrate
 ```
 
 This will create the `notification_templates` and `notification_subscriptions` tables.
 
-If you want to customize the unsubscribe link, publish the view component:
+If you want to customize the unsubscribe link or `unsubscribed` confirmation blade, publish the views:
 
 ```bash
 php artisan vendor:publish --tag="notification-subscriptions-views"
@@ -160,7 +159,7 @@ class ProductPriceNotification extends BaseNotification
 
 Any new notification will be automatically subscribed when used the first time.
 
-### Unsubscribe Links in Blades
+### Adding the Unsubscribe Link in Blades
 
 For unsubscribe links, modify the `toMail` method in the notification class:
 
@@ -183,7 +182,21 @@ Then add this to your blade:
 <x-notification-subscriptions::unsubscribe :subscription="$subscription" />
 ```
 
-The default controller action for unsubscribe is to redirect back with a session variable value of `error` or `status`.
+The invokable controller for unsubscribe will direct the user to a generic `unsubcribed.blade.php` file that may be customized. The variables returned to this blade are:
+
+```php
+$result = [
+    'success' => 'true|false',
+    'message' => '$message',
+    'template' => NotificationTemplate instance
+]
+```
+Possible `$message` values are:
+
+- Subscription not found
+- The $template->name_with_spaces notification cannot be unsubscribed
+- You are already unsubscribed from the '$template->name_with_spaces' notification
+- Successfully unsubscribed from the '$template->name_with_spaces' notification
 
 ## Testing
 

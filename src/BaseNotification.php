@@ -1,21 +1,17 @@
 <?php
 
-namespace Eugenefvdm\NotificationSubscriptions\Notifications;
+namespace Eugenefvdm\NotificationSubscriptions;
 
 use Eugenefvdm\NotificationSubscriptions\Models\NotificationSubscription;
 use Eugenefvdm\NotificationSubscriptions\Models\NotificationTemplate;
 use App\Models\User;
 use Eugenefvdm\NotificationSubscriptions\Enums\RepeatFrequency;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
 
-abstract class BaseNotification extends Notification implements ShouldQueue
-{
-    use Queueable;
-
+abstract class BaseNotification extends Notification 
+{    
     /**
      * customModel may be overridden by child classes and used for model specific notifications.
      * 

@@ -2,7 +2,7 @@
 
 namespace Eugenefvdm\NotificationSubscriptions\Listeners;
 
-use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
+use Eugenefvdm\NotificationSubscriptions\BaseNotification;
 use Illuminate\Notifications\Events\NotificationSent;
 
 class AfterSendingListener

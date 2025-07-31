@@ -4,9 +4,8 @@ namespace Eugenefvdm\NotificationSubscriptions\Tests\TestNotifications;
 
 use Eugenefvdm\NotificationSubscriptions\Enums\RepeatFrequency;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
+use Eugenefvdm\NotificationSubscriptions\BaseNotification;
 
 class WeeklyReminderSkipOneNotification extends BaseNotification
 {

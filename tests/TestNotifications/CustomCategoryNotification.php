@@ -2,13 +2,11 @@
 
 namespace Eugenefvdm\NotificationSubscriptions\Tests\TestNotifications;
 
-use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
+use Eugenefvdm\NotificationSubscriptions\BaseNotification;
 use Illuminate\Bus\Queueable;
 
 class CustomCategoryNotification extends BaseNotification
 {
-    use Queueable;
-
     public static ?string $category = 'custom';
 
     /**

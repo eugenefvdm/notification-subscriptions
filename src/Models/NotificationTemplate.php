@@ -3,6 +3,7 @@
 namespace Eugenefvdm\NotificationSubscriptions\Models;
 
 use Eugenefvdm\NotificationSubscriptions\Enums\RepeatFrequency;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -41,5 +42,12 @@ class NotificationTemplate extends Model
     public function isRepeatable(): bool
     {        
         return $this->repeat_frequency !== null;
+    }
+
+    public function nameWithSpaces(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => preg_replace('/(?<!^)[A-Z]/', ' $0', $this->name)
+        );
     }
 } 

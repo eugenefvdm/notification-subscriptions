@@ -2,7 +2,7 @@
 
 namespace Eugenefvdm\NotificationSubscriptions\Tests\TestNotifications;
 
-use Eugenefvdm\NotificationSubscriptions\Notifications\BaseNotification;
+use Eugenefvdm\NotificationSubscriptions\BaseNotification;
 use Illuminate\Bus\Queueable;
 
 class SystemNotification extends BaseNotification

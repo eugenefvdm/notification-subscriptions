@@ -40,10 +40,10 @@ it('will allow you to unsubscribe from a notification if you click the unsubscri
 
     // Visit the unsubscribe url
     $response = $this->get($unsubscribeUrl);
-    expect($response->status())->toBe(302);
+    expect($response->status())->toBe(200);
 
     // Check the success message is present
-    expect(session('success'))->not->toBeNull();
+    expect($response->getContent())->toContain("Successfully unsubscribed from &#039;Unsubscribe Link Notification&#039;");
 
     // Check if the subscription now has an unsubscribed_at timestamp
     expect($subscription->fresh()->unsubscribed_at)->not->toBeNull();    
@@ -62,8 +62,9 @@ it('a system notification cannot be unsubscribed', function () {
     $unsubscribeUrl = url(route('notifications.unsubscribe', $subscription->uuid));
 
     $response = $this->get($unsubscribeUrl);
-    expect($response->status())->toBe(302);
+    // dd($response->getContent());
+    expect($response->status())->toBe(200);
 
     // Check the error message is present
-    expect(session('error'))->not->toBeNull();
+    expect($response->getContent())->toContain("&#039;System Notification&#039; cannot be unsubscribed");
 });
