@@ -4,6 +4,7 @@
 
 ### Added
 
+- Throw an exception if the notification template cannot be found
 - Added a conditional in the listener to do a check for the unsubscribed_at date
 - Update README.md file and removed section about publishing resources
 - Added information in the README.md file about the `unsubscribed` confirmation page
