@@ -6,6 +6,7 @@ use Eugenefvdm\NotificationSubscriptions\Models\NotificationSubscription;
 use Eugenefvdm\NotificationSubscriptions\Models\NotificationTemplate;
 use App\Models\User;
 use Eugenefvdm\NotificationSubscriptions\Enums\RepeatFrequency;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
@@ -123,7 +124,13 @@ abstract class BaseNotification extends Notification
      */
     public static function getTemplate(): ?NotificationTemplate
     {
-        return NotificationTemplate::where('notification_class', basename(static::class))->firstOrFail();
+        $template = NotificationTemplate::where('notification_class', basename(static::class))->first();
+        
+        if (!$template) {
+            throw new Exception("Notification template not found for class: " . basename(static::class). ". Please ensure a notification has already been sent.");
+        }
+        
+        return $template;
     }
 
     /**
