@@ -1,10 +1,16 @@
 # Changelog
 
-## v0.8 - 2025-10-08
+## v0.9 - 2025-10-098
 
 ### Fixed
 
 - Add a null check in `UnsubscribeController.php` if the subscription couldn't be found by UUID
+
+## v0.8 - 2025-08-17
+
+### Fixed
+
+- Updated `unsubscribe.blade.php` with an additional null check
 
 ## v0.7 - 2025-07-31
 
