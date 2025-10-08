@@ -12,7 +12,9 @@ class UnsubscribeController extends Controller
      */
     public function __invoke(string $uuid)
     {
-        $subscription = NotificationSubscription::where('uuid', $uuid)->first();
+        $subscription = NotificationSubscription::with('template')
+            ->where('uuid', $uuid)
+            ->first();
 
         if (!$subscription) {
             $result = [
@@ -38,8 +40,10 @@ class UnsubscribeController extends Controller
             ];
         }
 
-        $result['template'] = $subscription->template;
-    
+        if ($subscription) {
+            $result['template'] = $subscription->template;
+        }
+
         return view('notification-subscriptions::unsubscribed', compact('result'));
-    }    
-} 
+    }
+}

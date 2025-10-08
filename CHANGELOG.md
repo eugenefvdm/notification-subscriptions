@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.8 - 2025-10-08
+
+### Fixed
+
+- Add a null check in `UnsubscribeController.php` if the subscription couldn't be found by UUID
+
 ## v0.7 - 2025-07-31
 
 ### Added
