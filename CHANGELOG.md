@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.11 - 2026-06-16
+
+### Changed
+
+- Added Laravel 13 compatibility for package testing dependencies and the GitHub Actions test matrix
+
+## v0.10 - 2026-06-16
+
+### Changed
+
+- Added Laravel 13 to the Laravel framework version requirement
+
 ## v0.9 - 2025-10-098
 
 ### Fixed
